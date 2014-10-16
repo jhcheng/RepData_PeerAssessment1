@@ -340,8 +340,6 @@ p <- g + geom_line() +
 print(p)
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-15-1.png) 
-
 <!-- Because of some technical issue, knit cannot show plot correctly. 
      So we create the picture file first. 
 -->
