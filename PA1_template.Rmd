@@ -26,7 +26,7 @@ sum_per_day
 ```
 
 Then make a histogram of sum_per_day:
-```{r}
+```{r figSumPerDay}
 hist(sum_per_day, xlab="Total Number of Steps", main="")
 ```
 
@@ -44,7 +44,7 @@ head(avg_per_interval,100)  # print first 100 resuts
 ```
 
 Then make a time series plot:
-```{r}
+```{r figAvgPerInterval}
 plot(names(avg_per_interval), 
      avg_per_interval, 
      type="l", 
@@ -82,20 +82,20 @@ head(data, 20)
 head(data_imputing, 20) 
 ```
 
-Finally, make a histogram of the total number of steps taken each day with new dataset:
-```{r}
+Finally, make a histogram of the total number of steps taken each day with **new** dataset:
+```{r figSumPerDayImputing}
 # calculate the total number of steps taken each day with new dataset
 sum_per_day_imputing <- tapply(data_imputing$steps, 
                                as.factor(data_imputing$date), sum)
 hist(sum_per_day_imputing, xlab="Total Number of Steps", main="")
 ```
 
-And Calculate and report the **mean** and **median** total number of steps taken per day with new dataset:
+And Calculate the **mean** and **median** total number of steps taken per day with **new** dataset:
 ```{r}
 mean(sum_per_day_imputing)
 median(sum_per_day_imputing)
 ```
-We can see the mean and median(10766, 10762) is very close to values before imputing missing data(10766, 10765). This is because we `round` the mean of 5-minute interval to fill in missing values. If we use different strategy such as `ceiling` or `floor`, the new mean and median will be more away from values before imputing. Let's try it:
+We can see the mean and median(10766, 10762) is very close to values before imputing missing values(10766, 10765). This is because we `round` the mean of 5-minute interval to fill in missing values. If we use different strategy such as `ceiling` or `floor`, the new mean and median will be more away from values before imputing. Let's try it:
 ```{r}
 # ceiling the mean
 data_imputing_ceil <- data
@@ -123,52 +123,34 @@ median(sum_per_day_imputing_floor)
 ## Are there differences in activity patterns between weekdays and weekends?
 First, we need to create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 ```{r message=FALSE, warning=FALSE}
-data_imputing2 <- apply(data_imputing, 1, function(x) {
-  wd <- weekdays(as.Date(x["date"], "%Y-%m-%d"))
-  if (wd == "Saturday" | wd == "Sunday")
-    x$wd <- "weekend"
-  else
-    x$wd <- "weekday"
-  x
+# cast date from character to Date class
+data_imputing$date <- as.Date(data_imputing$date)
+data_imputing$wd <- sapply(data_imputing$date, function(x) {
+  day <- weekdays(x)
+  ifelse(day %in% c("Saturday", "Sunday"), "weekend", "weekday")
 })
-```
-But `data_imputing2` is a `list` and we need to cast it to a `data frame`. Here we use a method provided by [http://stackoverflow.com/questions/4512465/what-is-the-most-efficient-way-to-cast-a-list-as-a-data-frame?rq=1](http://stackoverflow.com/questions/4512465/what-is-the-most-efficient-way-to-cast-a-list-as-a-data-frame?rq=1) to do it:
-```{r}
-f = function(x) function(i) unlist(lapply(x, `[[`, i), use.names=FALSE)
-data_imputing2 <- as.data.frame(Map(f(data_imputing2), names(data_imputing2[[1]])))
-head(data_imputing2, 20)  # print first 20 rows
+# check it
+head(data_imputing)
 ```
 
 Make a panel plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
 To do it, we need to calculate the average by weekday days and weekend days:
 ```{r}
-avg_per_interval_wd <- tapply(as.numeric(data_imputing2$steps), 
-                              list(data_imputing2$interval, data_imputing2$wd), 
-                              mean)
-```
-Since this is **not** a tidy dataset because the value "weekday" and "weekend" are factors. So we need to reshape it  by melting. We use package `reshape2` to do it:
-```{r message=FALSE, warning=FALSE}
-library(reshape2)
-df <- data.frame(avg_per_interval_wd)
-df$interval <- rownames(df)
-df_m <- melt(df, id=c("interval"))
-head(df_m, 20)
+averages <- aggregate(steps ~ interval + wd, data=data_imputing, mean)
 ```
 
 Finally, we can plot the dataset using package `gglot2`:
-```{r message=FALSE, warning=FALSE, results='hide', fig.show='hide'}
+```{r}
 library(ggplot2)
-as.factor(df_m$variable)
-# plot and print to a png file
-g <- ggplot(df_m, aes(as.numeric(interval), value))
-p <- g + geom_line(aes(group=variable)) + 
-         facet_grid(variable ~ .) + 
-         scale_x_discrete(breaks=seq(0, 2355, by=100)) +
-         xlab("Interval") +
-         ylab("Average Number of Steps")
+g <- ggplot(averages, aes(interval, steps, group=wd))
+p <- g + geom_line() + 
+  facet_wrap(~ wd, nrow=2) +
+  xlab("Interval") +
+  ylab("Average Number of Steps")
 print(p)
 ```
+
 <!-- Because of some technical issue, knit cannot show plot correctly. 
      So we create the picture file first. 
 -->

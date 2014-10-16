@@ -56,37 +56,21 @@ median(sum_per_day_imputing)
 #4) Are there differences in activity patterns between weekdays and weekends?
 #  1.Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating 
 #    whether a given date is a weekday or weekend day.
-data_imputing2 <- apply(data_imputing, 1, function(x) {
-  wd <- weekdays(as.Date(x["date"], "%Y-%m-%d"))
-  if (wd == "Saturday" | wd == "Sunday")
-    x$wd <- "weekend"
-  else
-    x$wd <- "weekday"
-  x
+data_imputing$date <- as.Date(data_imputing$date)
+data_imputing$wd <- sapply(data_imputing$date, function(x) {
+  day <- weekdays(x)
+  ifelse(day %in% c("Saturday", "Sunday"), "weekend", "weekday")
 })
-#  cast a list to data frame
-#  reference: 
-#  http://stackoverflow.com/questions/4512465/what-is-the-most-efficient-way-to-cast-a-list-as-a-data-frame?rq=1
-f = function(x) function(i) unlist(lapply(x, `[[`, i), use.names=FALSE)
-data_imputing2 <- as.data.frame(Map(f(data_imputing2), names(data_imputing2[[1]])))
+
 
 #  2.Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) 
 #    and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
-avg_per_interval_wd <- tapply(as.numeric(data_imputing2$steps), 
-                              list(data_imputing2$interval, data_imputing2$wd), 
-                              mean)
-
-library(reshape2)
-df <- data.frame(avg_per_interval_wd)
-df$interval <- rownames(df)
-df_m <- melt(df, id=c("interval"))
+averages <- aggregate(steps ~ interval + wd, data=data_imputing, mean)
 
 library(ggplot2)
-as.factor(df_m$variable)
-g <- ggplot(df_m, aes(as.numeric(interval), value))
-p <- g + geom_line(aes(group=variable)) + 
-         facet_grid(variable ~ .) + 
-         scale_x_discrete(breaks=seq(0, 2355, by=100)) +
-         xlab("Interval") +
-         ylab("Average Number of Steps")
+g <- ggplot(averages, aes(interval, steps, group=wd))
+p <- g + geom_line() + 
+  facet_wrap(~ wd, nrow=2) +
+  xlab("Interval") +
+  ylab("Average Number of Steps")
 print(p)

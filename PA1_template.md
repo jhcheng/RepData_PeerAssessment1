@@ -50,7 +50,7 @@ Then make a histogram of sum_per_day:
 hist(sum_per_day, xlab="Total Number of Steps", main="")
 ```
 
-![plot of chunk unnamed-chunk-3](./PA1_template_files/figure-html/unnamed-chunk-3.png) 
+![](./PA1_template_files/figure-html/figSumPerDay-1.png) 
 
 Calculate and report the **mean** and **median** total number of steps taken per day:
 
@@ -59,7 +59,7 @@ mean(sum_per_day)
 ```
 
 ```
-## [1] 10766
+## [1] 10766.19
 ```
 
 ```r
@@ -79,36 +79,40 @@ head(avg_per_interval,100)  # print first 100 resuts
 ```
 
 ```
-##         0         5        10        15        20        25        30 
-##   1.71698   0.33962   0.13208   0.15094   0.07547   2.09434   0.52830 
-##        35        40        45        50        55       100       105 
-##   0.86792   0.00000   1.47170   0.30189   0.13208   0.32075   0.67925 
-##       110       115       120       125       130       135       140 
-##   0.15094   0.33962   0.00000   1.11321   1.83019   0.16981   0.16981 
-##       145       150       155       200       205       210       215 
-##   0.37736   0.26415   0.00000   0.00000   0.00000   1.13208   0.00000 
-##       220       225       230       235       240       245       250 
-##   0.00000   0.13208   0.00000   0.22642   0.00000   0.00000   1.54717 
-##       255       300       305       310       315       320       325 
-##   0.94340   0.00000   0.00000   0.00000   0.00000   0.20755   0.62264 
-##       330       335       340       345       350       355       400 
-##   1.62264   0.58491   0.49057   0.07547   0.00000   0.00000   1.18868 
-##       405       410       415       420       425       430       435 
-##   0.94340   2.56604   0.00000   0.33962   0.35849   4.11321   0.66038 
-##       440       445       450       455       500       505       510 
-##   3.49057   0.83019   3.11321   1.11321   0.00000   1.56604   3.00000 
-##       515       520       525       530       535       540       545 
-##   2.24528   3.32075   2.96226   2.09434   6.05660  16.01887  18.33962 
-##       550       555       600       605       610       615       620 
-##  39.45283  44.49057  31.49057  49.26415  53.77358  63.45283  49.96226 
-##       625       630       635       640       645       650       655 
-##  47.07547  52.15094  39.33962  44.01887  44.16981  37.35849  49.03774 
-##       700       705       710       715       720       725       730 
-##  43.81132  44.37736  50.50943  54.50943  49.92453  50.98113  55.67925 
-##       735       740       745       750       755       800       805 
-##  44.32075  52.26415  69.54717  57.84906  56.15094  73.37736  68.20755 
-##       810       815 
-## 129.43396 157.52830
+##           0           5          10          15          20          25 
+##   1.7169811   0.3396226   0.1320755   0.1509434   0.0754717   2.0943396 
+##          30          35          40          45          50          55 
+##   0.5283019   0.8679245   0.0000000   1.4716981   0.3018868   0.1320755 
+##         100         105         110         115         120         125 
+##   0.3207547   0.6792453   0.1509434   0.3396226   0.0000000   1.1132075 
+##         130         135         140         145         150         155 
+##   1.8301887   0.1698113   0.1698113   0.3773585   0.2641509   0.0000000 
+##         200         205         210         215         220         225 
+##   0.0000000   0.0000000   1.1320755   0.0000000   0.0000000   0.1320755 
+##         230         235         240         245         250         255 
+##   0.0000000   0.2264151   0.0000000   0.0000000   1.5471698   0.9433962 
+##         300         305         310         315         320         325 
+##   0.0000000   0.0000000   0.0000000   0.0000000   0.2075472   0.6226415 
+##         330         335         340         345         350         355 
+##   1.6226415   0.5849057   0.4905660   0.0754717   0.0000000   0.0000000 
+##         400         405         410         415         420         425 
+##   1.1886792   0.9433962   2.5660377   0.0000000   0.3396226   0.3584906 
+##         430         435         440         445         450         455 
+##   4.1132075   0.6603774   3.4905660   0.8301887   3.1132075   1.1132075 
+##         500         505         510         515         520         525 
+##   0.0000000   1.5660377   3.0000000   2.2452830   3.3207547   2.9622642 
+##         530         535         540         545         550         555 
+##   2.0943396   6.0566038  16.0188679  18.3396226  39.4528302  44.4905660 
+##         600         605         610         615         620         625 
+##  31.4905660  49.2641509  53.7735849  63.4528302  49.9622642  47.0754717 
+##         630         635         640         645         650         655 
+##  52.1509434  39.3396226  44.0188679  44.1698113  37.3584906  49.0377358 
+##         700         705         710         715         720         725 
+##  43.8113208  44.3773585  50.5094340  54.5094340  49.9245283  50.9811321 
+##         730         735         740         745         750         755 
+##  55.6792453  44.3207547  52.2641509  69.5471698  57.8490566  56.1509434 
+##         800         805         810         815 
+##  73.3773585  68.2075472 129.4339623 157.5283019
 ```
 
 Then make a time series plot:
@@ -121,7 +125,7 @@ plot(names(avg_per_interval),
      ylab="Average Number of Steps")
 ```
 
-![plot of chunk unnamed-chunk-6](./PA1_template_files/figure-html/unnamed-chunk-6.png) 
+![](./PA1_template_files/figure-html/figAvgPerInterval-1.png) 
 
 We can get the 5-minute interval, on average across all the days in the dataset, which contains the maximum number of steps:
 
@@ -130,8 +134,8 @@ avg_per_interval[which.max(avg_per_interval)]
 ```
 
 ```
-##   835 
-## 206.2
+##      835 
+## 206.1698
 ```
 
 ## Imputing missing values
@@ -215,7 +219,7 @@ head(data_imputing, 20)
 ## 20     0 2012-10-01      135
 ```
 
-Finally, make a histogram of the total number of steps taken each day with new dataset:
+Finally, make a histogram of the total number of steps taken each day with **new** dataset:
 
 ```r
 # calculate the total number of steps taken each day with new dataset
@@ -224,16 +228,16 @@ sum_per_day_imputing <- tapply(data_imputing$steps,
 hist(sum_per_day_imputing, xlab="Total Number of Steps", main="")
 ```
 
-![plot of chunk unnamed-chunk-12](./PA1_template_files/figure-html/unnamed-chunk-12.png) 
+![](./PA1_template_files/figure-html/figSumPerDayImputing-1.png) 
 
-And Calculate and report the **mean** and **median** total number of steps taken per day with new dataset:
+And Calculate the **mean** and **median** total number of steps taken per day with **new** dataset:
 
 ```r
 mean(sum_per_day_imputing)
 ```
 
 ```
-## [1] 10766
+## [1] 10765.64
 ```
 
 ```r
@@ -243,7 +247,7 @@ median(sum_per_day_imputing)
 ```
 ## [1] 10762
 ```
-We can see the mean and median(10766, 10762) is very close to values before imputing missing data(10766, 10765). This is because we `round` the mean of 5-minute interval to fill in missing values. If we use different strategy such as `ceiling` or `floor`, the new mean and median will be more away from values before imputing. Let's try it:
+We can see the mean and median(10766, 10762) is very close to values before imputing missing values(10766, 10765). This is because we `round` the mean of 5-minute interval to fill in missing values. If we use different strategy such as `ceiling` or `floor`, the new mean and median will be more away from values before imputing. Let's try it:
 
 ```r
 # ceiling the mean
@@ -257,7 +261,7 @@ mean(sum_per_day_imputing_ceil)
 ```
 
 ```
-## [1] 10785
+## [1] 10784.92
 ```
 
 ```r
@@ -281,7 +285,7 @@ mean(sum_per_day_imputing_floor)
 ```
 
 ```
-## [1] 10750
+## [1] 10749.77
 ```
 
 ```r
@@ -296,45 +300,24 @@ median(sum_per_day_imputing_floor)
 First, we need to create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
 ```r
-data_imputing2 <- apply(data_imputing, 1, function(x) {
-  wd <- weekdays(as.Date(x["date"], "%Y-%m-%d"))
-  if (wd == "Saturday" | wd == "Sunday")
-    x$wd <- "weekend"
-  else
-    x$wd <- "weekday"
-  x
+# cast date from character to Date class
+data_imputing$date <- as.Date(data_imputing$date)
+data_imputing$wd <- sapply(data_imputing$date, function(x) {
+  day <- weekdays(x)
+  ifelse(day %in% c("Saturday", "Sunday"), "weekend", "weekday")
 })
-```
-But `data_imputing2` is a `list` and we need to cast it to a `data frame`. Here we use a method provided by [http://stackoverflow.com/questions/4512465/what-is-the-most-efficient-way-to-cast-a-list-as-a-data-frame?rq=1](http://stackoverflow.com/questions/4512465/what-is-the-most-efficient-way-to-cast-a-list-as-a-data-frame?rq=1) to do it:
-
-```r
-f = function(x) function(i) unlist(lapply(x, `[[`, i), use.names=FALSE)
-data_imputing2 <- as.data.frame(Map(f(data_imputing2), names(data_imputing2[[1]])))
-head(data_imputing2, 20)  # print first 20 rows
+# check it
+head(data_imputing)
 ```
 
 ```
-##    steps       date interval      wd
-## 1      2 2012-10-01        0 weekday
-## 2      0 2012-10-01        5 weekday
-## 3      0 2012-10-01       10 weekday
-## 4      0 2012-10-01       15 weekday
-## 5      0 2012-10-01       20 weekday
-## 6      2 2012-10-01       25 weekday
-## 7      1 2012-10-01       30 weekday
-## 8      1 2012-10-01       35 weekday
-## 9      0 2012-10-01       40 weekday
-## 10     1 2012-10-01       45 weekday
-## 11     0 2012-10-01       50 weekday
-## 12     0 2012-10-01       55 weekday
-## 13     0 2012-10-01      100 weekday
-## 14     1 2012-10-01      105 weekday
-## 15     0 2012-10-01      110 weekday
-## 16     0 2012-10-01      115 weekday
-## 17     0 2012-10-01      120 weekday
-## 18     1 2012-10-01      125 weekday
-## 19     2 2012-10-01      130 weekday
-## 20     0 2012-10-01      135 weekday
+##   steps       date interval      wd
+## 1     2 2012-10-01        0 weekday
+## 2     0 2012-10-01        5 weekday
+## 3     0 2012-10-01       10 weekday
+## 4     0 2012-10-01       15 weekday
+## 5     0 2012-10-01       20 weekday
+## 6     2 2012-10-01       25 weekday
 ```
 
 Make a panel plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
@@ -342,58 +325,23 @@ Make a panel plot containing a time series plot of the 5-minute interval (x-axis
 To do it, we need to calculate the average by weekday days and weekend days:
 
 ```r
-avg_per_interval_wd <- tapply(as.numeric(data_imputing2$steps), 
-                              list(data_imputing2$interval, data_imputing2$wd), 
-                              mean)
-```
-Since this is **not** a tidy dataset because the value "weekday" and "weekend" are factors. So we need to reshape it  by melting. We use package `reshape2` to do it:
-
-```r
-library(reshape2)
-df <- data.frame(avg_per_interval_wd)
-df$interval <- rownames(df)
-df_m <- melt(df, id=c("interval"))
-head(df_m, 20)
-```
-
-```
-##    interval variable value
-## 1         0  weekday 2.754
-## 2         5  weekday 1.295
-## 3        10  weekday 1.115
-## 4        15  weekday 1.131
-## 5        20  weekday 1.066
-## 6        25  weekday 3.082
-## 7        30  weekday 1.590
-## 8        35  weekday 1.885
-## 9        40  weekday 1.000
-## 10       45  weekday 2.410
-## 11       50  weekday 1.262
-## 12       55  weekday 1.115
-## 13      100  weekday 1.279
-## 14      105  weekday 1.721
-## 15      110  weekday 1.131
-## 16      115  weekday 1.295
-## 17      120  weekday 1.000
-## 18      125  weekday 2.098
-## 19      130  weekday 2.852
-## 20      135  weekday 1.148
+averages <- aggregate(steps ~ interval + wd, data=data_imputing, mean)
 ```
 
 Finally, we can plot the dataset using package `gglot2`:
 
 ```r
 library(ggplot2)
-as.factor(df_m$variable)
-# plot and print to a png file
-g <- ggplot(df_m, aes(as.numeric(interval), value))
-p <- g + geom_line(aes(group=variable)) + 
-         facet_grid(variable ~ .) + 
-         scale_x_discrete(breaks=seq(0, 2355, by=100)) +
-         xlab("Interval") +
-         ylab("Average Number of Steps")
+g <- ggplot(averages, aes(interval, steps, group=wd))
+p <- g + geom_line() + 
+  facet_wrap(~ wd, nrow=2) +
+  xlab("Interval") +
+  ylab("Average Number of Steps")
 print(p)
 ```
+
+![](./PA1_template_files/figure-html/unnamed-chunk-15-1.png) 
+
 <!-- Because of some technical issue, knit cannot show plot correctly. 
      So we create the picture file first. 
 -->
