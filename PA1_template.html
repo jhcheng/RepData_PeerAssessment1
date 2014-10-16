@@ -153,9 +153,10 @@ head(avg_per_interval,100)  # print first 100 resuts</code></pre>
 <pre><code>## [1] 2304</code></pre>
 <p>Second, devise a strategy for filling in all of the missing values in the dataset. Here we use <strong>the mean for that 5-minute interval</strong> to fill the missing values:</p>
 <pre class="r"><code>data_imputing &lt;- data
-data_imputing$steps &lt;- ifelse(is.na(data_imputing$steps), 
-                              round(avg_per_interval[as.character(data_imputing$interval)]) , 
-                              data_imputing$steps)</code></pre>
+data_imputing &lt;- within(data_imputing, 
+                        steps &lt;- ifelse(is.na(steps), 
+                                        round(avg_per_interval[as.character(interval)]) , 
+                                        steps))</code></pre>
 <p>We have already created a new dataset <code>data_imputing</code> that is equal to the original dataset but with the missing data filled in. We can check it:</p>
 <pre class="r"><code># first 20 rows of original dataset
 head(data, 20) </code></pre>
@@ -217,9 +218,10 @@ hist(sum_per_day_imputing, xlab=&quot;Total Number of Steps&quot;, main=&quot;&q
 <p>We can see the mean and median(10766, 10762) is very close to values before imputing missing values(10766, 10765). This is because we <code>round</code> the mean of 5-minute interval to fill in missing values. If we use different strategy such as <code>ceiling</code> or <code>floor</code>, the new mean and median will be more away from values before imputing. Let’s try it:</p>
 <pre class="r"><code># ceiling the mean
 data_imputing_ceil &lt;- data
-data_imputing_ceil$steps &lt;- ifelse(is.na(data_imputing_ceil$steps), 
-                                   ceiling(avg_per_interval[as.character(data_imputing_ceil$interval)]) , 
-                                   data_imputing_ceil$steps)
+data_imputing_ceil &lt;- within(data_imputing_ceil, 
+                        steps &lt;- ifelse(is.na(steps), 
+                                        ceiling(avg_per_interval[as.character(interval)]) , 
+                                        steps))
 sum_per_day_imputing_ceil &lt;- tapply(data_imputing_ceil$steps, 
                                     as.factor(data_imputing_ceil$date), sum)
 mean(sum_per_day_imputing_ceil)</code></pre>
@@ -228,9 +230,10 @@ mean(sum_per_day_imputing_ceil)</code></pre>
 <pre><code>## [1] 10909</code></pre>
 <pre class="r"><code># floor the mean
 data_imputing_floor &lt;- data
-data_imputing_floor$steps &lt;- ifelse(is.na(data_imputing_floor$steps), 
-                                    floor(avg_per_interval[as.character(data_imputing_floor$interval)]) , 
-                                    data_imputing_floor$steps)
+data_imputing_floor &lt;- within(data_imputing_floor, 
+                        steps &lt;- ifelse(is.na(steps), 
+                                        floor(avg_per_interval[as.character(interval)]) , 
+                                        steps))
 sum_per_day_imputing_floor &lt;- tapply(data_imputing_floor$steps, 
                                      as.factor(data_imputing_floor$date), sum)
 mean(sum_per_day_imputing_floor)</code></pre>

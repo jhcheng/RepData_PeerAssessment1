@@ -66,9 +66,10 @@ sum(!ok)
 Second, devise a strategy for filling in all of the missing values in the dataset. Here we use **the mean for that 5-minute interval** to fill the missing values:
 ```{r}
 data_imputing <- data
-data_imputing$steps <- ifelse(is.na(data_imputing$steps), 
-                              round(avg_per_interval[as.character(data_imputing$interval)]) , 
-                              data_imputing$steps)
+data_imputing <- within(data_imputing, 
+                        steps <- ifelse(is.na(steps), 
+                                        round(avg_per_interval[as.character(interval)]) , 
+                                        steps))
 ```
 
 We have already created a new dataset `data_imputing` that is equal to the original dataset but with the missing data filled in. We can check it:
@@ -99,9 +100,10 @@ We can see the mean and median(10766, 10762) is very close to values before impu
 ```{r}
 # ceiling the mean
 data_imputing_ceil <- data
-data_imputing_ceil$steps <- ifelse(is.na(data_imputing_ceil$steps), 
-                                   ceiling(avg_per_interval[as.character(data_imputing_ceil$interval)]) , 
-                                   data_imputing_ceil$steps)
+data_imputing_ceil <- within(data_imputing_ceil, 
+                        steps <- ifelse(is.na(steps), 
+                                        ceiling(avg_per_interval[as.character(interval)]) , 
+                                        steps))
 sum_per_day_imputing_ceil <- tapply(data_imputing_ceil$steps, 
                                     as.factor(data_imputing_ceil$date), sum)
 mean(sum_per_day_imputing_ceil)
@@ -111,9 +113,10 @@ median(sum_per_day_imputing_ceil)
 ```{r}
 # floor the mean
 data_imputing_floor <- data
-data_imputing_floor$steps <- ifelse(is.na(data_imputing_floor$steps), 
-                                    floor(avg_per_interval[as.character(data_imputing_floor$interval)]) , 
-                                    data_imputing_floor$steps)
+data_imputing_floor <- within(data_imputing_floor, 
+                        steps <- ifelse(is.na(steps), 
+                                        floor(avg_per_interval[as.character(interval)]) , 
+                                        steps))
 sum_per_day_imputing_floor <- tapply(data_imputing_floor$steps, 
                                      as.factor(data_imputing_floor$date), sum)
 mean(sum_per_day_imputing_floor)

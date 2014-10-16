@@ -37,9 +37,10 @@ sum(!ok)
 #    The strategy does not need to be sophisticated. 
 #    For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 data_imputing <- data
-data_imputing$steps <- ifelse(is.na(data_imputing$steps), 
-                              round(avg_per_interval[as.character(data_imputing$interval)]) , 
-                              data_imputing$steps)
+data_imputing <- within(data_imputing, 
+                        steps <- ifelse(is.na(steps), 
+                                        round(avg_per_interval[as.character(interval)]) , 
+                                        steps))
 
 #  3.Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
